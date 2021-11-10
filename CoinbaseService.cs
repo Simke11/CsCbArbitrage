@@ -8,7 +8,7 @@ namespace CsCbArbitrage
         List<string> GetCoins();
     }
 
-    public class CoinbaseService
+    public class CoinbaseService : ICoinbaseService
     {
         public List<string> GetCoins()
         {

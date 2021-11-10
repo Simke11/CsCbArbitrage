@@ -8,7 +8,7 @@ namespace CsCbArbitrage
         List<string> GetCoins();
     }
 
-    public class CoinspotService
+    public class CoinspotService : ICoinspotService
     {
         public List<string> GetCoins()
         {
