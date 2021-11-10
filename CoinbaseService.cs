@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 
 namespace CsCbArbitrage
 {
@@ -16,8 +17,16 @@ namespace CsCbArbitrage
         public List<string> GetCoins()
         {
             var apiUrl = "https://api.coinbase.com/v2/exchange-rates?currency=AUD";
+
+            var client = new HttpClient();
+
+            var result = client.GetStringAsync(apiUrl).Result;
+
+            Console.WriteLine(result);
             
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+
+            return new List<string>();
         }
     }
 }
