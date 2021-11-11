@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Linq;
+using Newtonsoft.Json;
 
 namespace CsCbArbitrage
 {
@@ -21,6 +23,18 @@ namespace CsCbArbitrage
             var client = new HttpClient();
 
             var result = client.GetStringAsync(apiUrl).Result;
+
+            var currencies = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(result);
+
+            //foreach (var c in currencies.data.rates)
+            //{
+            //    object o = c;
+              //  string[] propertyNames = o.GetType().GetProperties().Select(p => p.Name).ToArray();
+                //foreach (var prop in propertyNames)
+                //{
+                 //   object propValue = o.GetType().GetProperty(prop).GetValue(o, null);
+                //}
+            //}
 
             Console.WriteLine(result);
 
