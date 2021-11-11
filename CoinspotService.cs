@@ -15,7 +15,9 @@ namespace CsCbArbitrage
         /// </summary>
         public List<Currency> GetCurrencies()
         {
-            throw new NotImplementedException();
+            var currencies = new List<Currency>();
+
+            return currencies;
         }
     }
 }

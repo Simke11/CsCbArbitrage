@@ -15,7 +15,10 @@ namespace CsCbArbitrage
 
             Console.WriteLine("Getting coins from CoinSpot...");
 
-            Console.WriteLine("Done.");
+            var coinspotService = new CoinspotService();
+            var coinspotCurrencies = coinspotService.GetCurrencies();
+
+            Console.WriteLine($"Done. Found {coinspotCurrencies.Count} currencies.");
 
             Console.WriteLine("Finding arbitrage opportunities...");
         }

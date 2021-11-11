@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Linq;
 using Newtonsoft.Json.Linq;
 
 namespace CsCbArbitrage
@@ -27,7 +25,6 @@ namespace CsCbArbitrage
             var client = new HttpClient();
             var response = client.GetStringAsync(apiUrl).Result;
 
-            //var result = JToken.Parse(response);
             var result = JToken.Parse(response)["data"]["rates"].Value<JObject>();
 
             foreach (var prop in result.Properties())
