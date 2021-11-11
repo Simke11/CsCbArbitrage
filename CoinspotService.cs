@@ -5,15 +5,15 @@ namespace CsCbArbitrage
 {
     public interface ICoinspotService
     {
-        List<string> GetCoins();
+        List<Currency> GetCurrencies();
     }
 
     public class CoinspotService : ICoinspotService
     {
         /// <summary>
-        /// Gets list of coins available on CoinSpot exchange.
+        /// Gets list of currencies available on CoinSpot exchange.
         /// </summary>
-        public List<string> GetCoins()
+        public List<Currency> GetCurrencies()
         {
             throw new NotImplementedException();
         }
