@@ -25,6 +25,7 @@ namespace CsCbArbitrage
             var client = new HttpClient();
             var response = client.GetStringAsync(apiUrl).Result;
 
+            // Parse result into Currency collection
             var result = JToken.Parse(response)["data"]["rates"].Value<JObject>();
 
             foreach (var prop in result.Properties())
