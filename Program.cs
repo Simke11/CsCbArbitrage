@@ -9,9 +9,9 @@ namespace CsCbArbitrage
             Console.WriteLine("Getting coins from Coinbase...");
 
             var coinbaseService = new CoinbaseService();
-            var coinbaseCoins = coinbaseService.GetCurrencies();
+            var coinbaseCurrencies = coinbaseService.GetCurrencies();
 
-            Console.WriteLine("Done.");
+            Console.WriteLine($"Done. Found {coinbaseCurrencies.Count} currencies.");
 
             Console.WriteLine("Getting coins from CoinSpot...");
 

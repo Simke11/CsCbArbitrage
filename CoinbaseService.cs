@@ -2,13 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Linq;
-using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace CsCbArbitrage
 {
     public interface ICoinbaseService
     {
         List<Currency> GetCurrencies();
+
+        decimal GetPriceFromExchangeRate(decimal rate);
     }
 
     public class CoinbaseService : ICoinbaseService
@@ -18,27 +20,37 @@ namespace CsCbArbitrage
         /// </summary>
         public List<Currency> GetCurrencies()
         {
+            var currencies = new List<Currency>();
+
+            // Call API
             var apiUrl = "https://api.coinbase.com/v2/exchange-rates?currency=AUD";
-
             var client = new HttpClient();
+            var response = client.GetStringAsync(apiUrl).Result;
 
-            var result = client.GetStringAsync(apiUrl).Result;
+            //var result = JToken.Parse(response);
+            var result = JToken.Parse(response)["data"]["rates"].Value<JObject>();
 
-            var currencies = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(result);
+            foreach (var prop in result.Properties())
+            {
+                var currency = new Currency()
+                {
+                    Id = prop.Name,
+                    Price = GetPriceFromExchangeRate(decimal.Parse(prop.Value.ToString()))
+                };
 
-            //foreach (var c in currencies.data.rates)
-            //{
-            //    object o = c;
-              //  string[] propertyNames = o.GetType().GetProperties().Select(p => p.Name).ToArray();
-                //foreach (var prop in propertyNames)
-                //{
-                 //   object propValue = o.GetType().GetProperty(prop).GetValue(o, null);
-                //}
-            //}
+                currencies.Add(currency);
+            }
 
-            Console.WriteLine(result);
+            return currencies;
+        }
 
-            return new List<Currency>();
+        /// <summary>
+        /// Calculates currency price based on exchange rate.
+        /// </summary>
+        public decimal GetPriceFromExchangeRate(decimal rate)
+        {
+            var price = 1 / rate;
+            return price;
         }
     }
 }
